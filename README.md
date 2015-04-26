@@ -2,4 +2,4 @@
 carton install
 
 # EXECUTE
-carton exec -- perl -Ilib bin/reader.pl
+carton exec -- perl -Ilib script/reader.pl
