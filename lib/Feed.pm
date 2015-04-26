@@ -25,12 +25,14 @@ sub execute {
     } qw/Loader Converter Dumper/;
 
     foreach my $input (@{ $args{inputs} }) {
-        my $content   = $loader->load($input);
-        my $converted = eval { $converter->convert($content) };
+        eval {
+            my $content   = $loader->load($input);
+            my $converted = $converter->convert($content);
+            $dumper->dump( $converted );
+        };
         if ( $@ ) {
-            warn "Failed convert $input : $@";
+            warn "Failed to process $input : $@";
         }
-        $dumper->dump( $converted );
     }
 }
 
